@@ -1,0 +1,74 @@
+# -----------------------------
+# Web Framework
+# -----------------------------
+fastapi
+uvicorn[standard]
+python-multipart
+
+# -----------------------------
+# Configuration
+# -----------------------------
+python-dotenv
+pydantic
+pydantic-settings
+
+# -----------------------------
+# PDF Processing
+# -----------------------------
+PyMuPDF
+
+# -----------------------------
+# LangChain
+# -----------------------------
+langchain
+langchain-core
+langchain-community
+langchain-text-splitters
+
+# -----------------------------
+# Embeddings
+# -----------------------------
+sentence-transformers
+torch
+transformers
+
+# -----------------------------
+# Vector Database
+# -----------------------------
+chromadb
+
+# -----------------------------
+# LangSmith
+# -----------------------------
+langsmith
+
+# -----------------------------
+# OpenAI Compatible Client
+# (For FreeLLMAPI)
+# -----------------------------
+openai
+
+# -----------------------------
+# Utilities
+# -----------------------------
+numpy
+tqdm
+orjson
+httpx
+requests
+
+# -----------------------------
+# Logging
+# -----------------------------
+loguru
+
+# -----------------------------
+# Testing
+# -----------------------------
+pytest
+pytest-asyncio
+
+# -----------------------------
+# Optional
+# -----------------------------
+typing-extensions
