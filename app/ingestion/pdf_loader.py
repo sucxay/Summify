@@ -84,25 +84,6 @@ class PDFLoader:
             word_count=len(full_text.split()),
         )
 
-    def _extract_tables(
-        self,
-        page: fitz.Page,
-    ) -> list[list[list[str]]]:
-        tables = []
-
-        try:
-            found_tables = page.find_tables()
-
-            for table in found_tables:
-                extracted = table.extract()
-
-                if extracted:
-                    tables.append(extracted)
-
-        except Exception:
-            return []
-
-        return tables
 
     def _extract_metadata(
         self,
