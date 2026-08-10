@@ -2,7 +2,7 @@
 High-level service for generating embeddings with caching and batching. 
 """
 
-from typing import List, Optional, Any 
+from typing import Any, List, Optional
 from app.embeddings.cache import EmbeddingCache
 
 from app.utils.timers import timeit 
@@ -44,13 +44,15 @@ class EmbeddingService:
 
         if uncached_texts:
             uncached_embeddings = self.embedder.embed(uncached_texts)
-            for i, embedding in zip(uncached_indices, uncached_embeddings):
-                self.cache.put(uncached_texts[i], embedding)
-                results[i] = embedding
+            for idx, embedding in zip(uncached_indices, uncached_embeddings):
+                # idx is the position in the original `texts` list
+                # map back to the corresponding uncached text using that index
+                self.cache.put(texts[idx], embedding)
+                results[idx] = embedding
 
         return results
     
-    def embed_single(self, text: str) -> List[float]:
+    def embed_single(self,text:str)-> list[float]:
         result= self.embed([text])
         return result[0]
     
@@ -63,14 +65,14 @@ class EmbeddingService:
             results.extend(batch_results)
         return results
     
-    def embed_chunks (self , chunks)->List[List[float]]:
+    def embed_chunks(self, chunks) -> List[List[float]]:
         """
         Embed a list of text chunks, using caching if available.
 
         Args:
             chunks: List of text chunks to embed
             """
-        
+
         texts = [chunk.text for chunk in chunks]
         return self.embed(texts)
     
@@ -80,7 +82,7 @@ class EmbeddingService:
             return self.cache.stats
         return None
     
-    def cleaer_cache(self)->None:
+    def clear_cache(self) -> None:
         if self.cache:
             self.cache.clear()
 
