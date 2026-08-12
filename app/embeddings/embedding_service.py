@@ -1,11 +1,13 @@
 """
-High-level service for generating embeddings with caching and batching. 
+High-level service for generating embeddings with caching and batching.
 """
 
-from typing import Any, List, Optional
+from typing import Any, List, Optional, Dict
+import logging
 from app.embeddings.cache import EmbeddingCache
+from app.utils.timers import timeit
 
-from app.utils.timers import timeit 
+logger = logging.getLogger(__name__) 
 
 class EmbeddingService:
     """Provides a clean API for embedding text, with optional caching."""

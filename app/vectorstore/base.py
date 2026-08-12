@@ -11,7 +11,7 @@ vector store without knowing which one is being used.
 from abc import ABC, abstractmethod
 from typing import List, Dict, Any, Optional
 
-from app.schemas.document import Chunk
+from app.schemas.chunk import Chunk
 
 
 class BaseVectorStore(ABC):

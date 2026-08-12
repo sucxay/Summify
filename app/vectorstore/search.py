@@ -5,10 +5,7 @@ Similarity search across ChromaDB collections.
 from typing import Any, Dict, List, Optional
 import logging
 
-from app.vectorstore.collections import (
-    get_collection,
-    list_collections,
-)
+from app.vectorstore.collections import CollectionManager
 
 logger = logging.getLogger(__name__)
 
@@ -60,6 +57,7 @@ def similarity_search(
                 collection.name,
                 e,
             )
+            continue  # Skip problematic collections
 
     all_results.sort(
         key=lambda result: result["score"],
@@ -173,10 +171,10 @@ def _get_target_collections(
     """
 
     if document_id is None:
-        return list_collections()
+        return CollectionManager.list_collections()
 
     try:
-        return [get_collection(document_id)]
+        return [CollectionManager.get_collection(document_id)]
 
     except ValueError:
         logger.warning(

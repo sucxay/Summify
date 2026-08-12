@@ -1,20 +1,3 @@
-"""
-Vector Store package for Summify.
-
-Provides:
-- ChromaClient: Singleton client for ChromaDB connection.
-- CollectionManager: Manager for ChromaDB collections.
-- PersistenceManager: Manager for document persistence.
-- similarity_search: Function for searching similar documents.
-- get_vector_store(): Factory function returning a singleton vector store instance.
-
-Usage:
-    from app.vectorstore import get_vector_store, CollectionManager
-
-    store = get_vector_store()
-    store.add_documents(chunks, embeddings)
-    results = store.similarity_search(query_embedding, top_k=5)
-"""
 from typing import Optional
 
 from app.vectorstore.chroma import ChromaClient
@@ -47,12 +30,12 @@ def get_vector_store():
     - You can swap the backend by changing ONE line here.
 
     Returns:
-        PersistenceManager instance.
+        PersistenceManager instance with search capabilities.
 
     Example:
         store = get_vector_store()
         store.add_documents(chunks, embeddings)
-        count = store.count()
+        results = store.search(query_embedding, top_k=5)
     """
     global _vector_store_instance
 
@@ -83,9 +66,7 @@ def reset_vector_store() -> None:
 
 __all__ = [
     "ChromaClient",
-    "CollectionManager", 
-    "PersistenceManager",
-    "similarity_search",
+    "CollectionManager",
     "get_vector_store",
     "reset_vector_store",
 ]

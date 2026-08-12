@@ -1,6 +1,14 @@
+import os
 from functools import lru_cache
+from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+# Determine the absolute path to the backend directory
+# This works regardless of where the script is run from
+BACKEND_DIR = Path(__file__).resolve().parent.parent.parent
+ENV_FILE = BACKEND_DIR / ".env"
 
 
 class Settings(BaseSettings):
@@ -38,23 +46,26 @@ class Settings(BaseSettings):
     EMBEDDING_MODEL: str = (
         "sentence-transformers/all-MiniLM-L6-v2"
     )
+    NORMALIZE_EMBEDDINGS: bool = True
 
     # =========================
     # ChromaDB
     # =========================
-    CHROMA_DB_PATH: str = "./chroma_db"
+    CHROMA_DB_PATH: str = str(BACKEND_DIR / "chroma_db")
     CHROMA_COLLECTION: str = "summify_documents"
 
     # =========================
     # LLM
     # =========================
     OPENAI_API_KEY: str
-    OPENAI_BASE_URL: str
+    OPENAI_BASE_URL: str = "https://api.openai.com/v1"
 
     MODEL_NAME: str = "auto"
 
-    TEMPERATURE: float = 0.2
-    MAX_TOKENS: int = 4096
+    LLM_TEMPERATURE: float = 0.2
+    LLM_MAX_TOKENS: int = 4096
+    LLM_TIMEOUT: int = 60
+    LLM_MAX_RETRIES: int = 3
 
     # =========================
     # Retrieval
@@ -71,7 +82,8 @@ class Settings(BaseSettings):
     LANGCHAIN_ENDPOINT: str = "https://api.smith.langchain.com"
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=str(ENV_FILE),
+        env_file_encoding='utf-8',
         extra="ignore",
     )
 

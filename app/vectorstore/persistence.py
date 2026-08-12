@@ -1,5 +1,5 @@
 import logging 
-from app.vectorstore.collections import Collections 
+from app.vectorstore.collections import CollectionManager 
 
 logger  = logging.getLogger(__name__)
 
@@ -11,14 +11,14 @@ class PersistenceManager:
         """
         add documents to a collection with the given name, ids, documents, metadatas and embeddings.
         """
-        collections = Collections.get_or_create_collection(name=collection_name)
+        collections = CollectionManager.get_or_create_collection(name=collection_name)
         collections.add(ids = ids , documents = documents , metadatas = metadatas , embeddings = embeddings)
         logger.info('Added %d documents to collection %s.', len(documents), collection_name)
          
     @staticmethod
     def delete_documents(collection_name:str , ids:list[str])->None:
 
-        collections  = Collections.get_collection(name= collection_name)
+        collections  = CollectionManager.get_collection(name= collection_name)
 
         collections.delete(ids = ids)
 
@@ -32,7 +32,7 @@ class PersistenceManager:
         """
         update documents in a collection with the given name, ids, documents, metadatas and embeddings.
         """
-        collections  = Collections.get_collection(name= collection_name)
+        collections  = CollectionManager.get_collection(name= collection_name)
 
         collections.update(ids = ids , documents = documents , metadatas = metadatas , embeddings = embeddings)
         
@@ -44,7 +44,7 @@ class PersistenceManager:
         """
         upsert documents in a collection with the given name, ids, documents, metadatas and embeddings.
         """
-        collections  = Collections.get_collection(name= collection_name)
+        collections  = CollectionManager.get_collection(name= collection_name)
 
         collections.upsert(ids = ids , documents = documents , metadatas = metadatas , embeddings = embeddings)
         
