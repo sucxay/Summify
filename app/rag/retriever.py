@@ -38,11 +38,11 @@ class Retriever:
 
         logger.debug(f"Searching for top_{k} chunks....")
 
-        results = self.vector_store.search(
-            query_embedding=query_embedding,
-            top_k=k,
-            document_id=document_id,
-            metadata_filter=metadata_filter
+        results = self.vector_store.similarity_search(
+        query_embedding=query_embedding,
+        top_k=k,
+        document_id=document_id,
+        filter=metadata_filter,
         )
 
         if document_id and results:

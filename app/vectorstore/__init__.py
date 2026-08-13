@@ -4,6 +4,7 @@ from app.vectorstore.chroma import ChromaClient
 from app.vectorstore.collections import CollectionManager
 from app.vectorstore.persistence import PersistenceManager
 from app.vectorstore.search import similarity_search
+from app.vectorstore.chroma_store import ChromaVectorStore
 
 # ---------------------------------------------------------------------------
 # Singleton instance
@@ -40,7 +41,7 @@ def get_vector_store():
     global _vector_store_instance
 
     if _vector_store_instance is None:
-        _vector_store_instance = PersistenceManager()
+        _vector_store_instance = ChromaVectorStore()
 
     return _vector_store_instance
 

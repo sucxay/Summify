@@ -28,13 +28,19 @@ class ChromaVectorStore(BaseVectorStore):
             embeddings=embeddings,
         )
 
-    def similarity_search(self, query_embedding, top_k=5, filter=None):
+    def similarity_search(
+    self,
+    query_embedding,
+    top_k=5,
+    document_id=None,
+    filter=None,
+    ):
         return similarity_search(
             query_embedding=query_embedding,
             top_k=top_k,
+            document_id=document_id,
             metadata_filter=filter,
         )
-
     def delete_document(self, document_id):
         # implement later
         pass

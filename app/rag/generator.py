@@ -89,6 +89,27 @@ class Generator:
         )
 
     @staticmethod
+   
+    def _get_prompt(summary_type: str) -> str:
+        """Return the appropriate prompt template for the requested summary type."""
+        prompts = {
+            "general": GENERAL_SUMMARY_PROMPT,
+            "executive": EXECUTIVE_SUMMARY_PROMPT,
+            "bullet_points": BULLET_POINTS_PROMPT,
+            "key_findings": KEY_FINDINGS_PROMPT,
+            "action_items": ACTION_ITEMS_PROMPT,
+        }
+
+        if summary_type not in prompts:
+            raise ValueError(
+                f"Unsupported summary type: {summary_type}. "
+                f"Supported types: {', '.join(prompts.keys())}"
+            )
+
+        return prompts[summary_type]
+
+
+    @staticmethod
     def _get_prompt_template(summary_type: str) -> str:
-        """Legacy alias for backward compatibility; delegates to _get_prompt."""
+        """Legacy alias for backward compatibility."""
         return Generator._get_prompt(summary_type)

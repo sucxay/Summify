@@ -53,7 +53,7 @@ def get_retriever():
     global _retriever
     if _retriever is None:
         _retriever = Retriever(
-            embed_service=get_embed_service(),
+            embedding_service=get_embed_service(),
             vector_store=get_vector_store(),
             context_builder=get_context_builder(),
         )
