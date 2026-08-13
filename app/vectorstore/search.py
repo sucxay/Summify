@@ -128,7 +128,7 @@ def get_chunk_by_id(
     """
 
     try:
-        collection = get_collection(document_id)
+        collection = CollectionManager.get_collection(document_id)
 
         result = collection.get(ids=[chunk_id])
 

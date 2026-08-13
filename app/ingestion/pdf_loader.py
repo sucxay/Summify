@@ -110,3 +110,10 @@ class PDFLoader:
             "source_path": str(file_path.resolve()),
             "file_name": file_path.name,
         }
+    
+    def _extract_tables(self, page):
+        try:
+            tabs = page.find_tables()
+            return [table.extract() for table in tabs.tables]
+        except Exception:
+            return []

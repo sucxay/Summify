@@ -13,7 +13,7 @@ from app.ingestion.metadata import MetadataExtractor
 from app.ingestion.chunker import SemanticChunker
 from app.embeddings.embedding_service import EmbeddingService
 from app.vectorstore.base import BaseVectorStore
-
+import pathlib 
 logger = logging.getLogger(__name__)
 
 
@@ -26,7 +26,7 @@ class DocumentService:
     ):
         self.embed_service = embed_service
         self.vector_store = vector_store
-        self.upload_dir = upload_dir
+        self.upload_dir = pathlib.Path(upload_dir)
         self.validator = DocumentValidator()
         self.loader = PDFLoader()
         self.cleaner = TextCleaner()

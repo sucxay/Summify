@@ -3,6 +3,10 @@ Token counting utilities.
 Uses tiktoken for OpenAI-compatible token counting.
 """
 from typing import Optional
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 try:
     import tiktoken

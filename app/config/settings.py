@@ -81,6 +81,11 @@ class Settings(BaseSettings):
     LANGCHAIN_TRACING_V2: bool = True
     LANGCHAIN_ENDPOINT: str = "https://api.smith.langchain.com"
 
+    # =========================
+    # CORS
+    # =========================
+    ALLOWED_ORIGINS: list[str] = ["*"]
+
     model_config = SettingsConfigDict(
         env_file=str(ENV_FILE),
         env_file_encoding='utf-8',

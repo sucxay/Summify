@@ -6,7 +6,11 @@ import mimetypes
 from pathlib import Path
 from typing import Tuple, Optional
 
-import fitz
+# Import fitz (PyMuPDF) for PDF validation. If unavailable, set to None and handle gracefully.
+try:
+    import fitz
+except ImportError:  # pragma: no cover
+    fitz = None  # type: ignore
 
 from app.config.constants import (
     ALLOWED_EXTENSIONS,
@@ -161,6 +165,8 @@ class DocumentValidator:
         if file_path.suffix.lower() != '.pdf':
             return {"page_count": 0, "is_encrypted": False}
 
+        if fitz is None:
+            raise ImportError("PyMuPDF (fitz) is required for PDF validation but is not installed.")
         doc = None
         try:
             doc = fitz.open(str(file_path))
